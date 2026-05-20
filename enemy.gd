@@ -16,6 +16,9 @@ func _physics_process(delta):
 	move_and_slide()
 
 func die():
-	get_tree().current_scene.add_score()
+	var main = get_tree().current_scene
+
+	main.add_score()
+	main.show_hitmarker()
 
 	queue_free()

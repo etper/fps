@@ -6,12 +6,21 @@ const MOUSE_SENS = 0.002
 
 @export var bullet_scene : PackedScene
 
+@onready var gun_sfx = $Camera3D/GunSFX
+
 @onready var bullet_spawn = $BulletSpawn
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+const RECOIL_STRENGTH = 0.01
+const RECOIL_RECOVER = 8.0
+
+var recoil_x = 0.0
+
 @onready var camera = $Camera3D
 @onready var raycast = $RayCast3D
+
+@onready var muzzle_flash = $Camera3D/MuzzleFlash
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -34,6 +43,10 @@ func _unhandled_input(event):
 		)
 
 func _physics_process(delta):
+
+	recoil_x = lerp(recoil_x, 0.0, RECOIL_RECOVER * delta)
+
+	camera.rotation.x += recoil_x
 
 	# gravity
 	if not is_on_floor():
@@ -65,7 +78,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-
 func shoot():
 	var bullet = bullet_scene.instantiate()
 
@@ -74,3 +86,14 @@ func shoot():
 	bullet.global_position = camera.global_position
 
 	bullet.direction = -camera.global_transform.basis.z
+
+	gun_sfx.stop()
+	gun_sfx.play()
+
+	recoil_x += RECOIL_STRENGTH
+
+	muzzle_flash.visible = true
+
+	await get_tree().create_timer(0.05).timeout
+
+	muzzle_flash.visible = false

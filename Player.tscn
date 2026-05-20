@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bco4p7ru2gi4p" path="res://player.gd" id="1_xhfnw"]
 [ext_resource type="PackedScene" uid="uid://bo5thks6jrm6e" path="res://Bullet.tscn" id="2_kpjcp"]
+[ext_resource type="AudioStream" uid="uid://da4mkipqm628i" path="res://sfx/gunshot.mp3" id="3_kne1u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
 
@@ -17,6 +18,15 @@ shape = SubResource("CapsuleShape3D_0rwas")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1006311315]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5841048, 0)
 current = true
+
+[node name="MuzzleFlash" type="OmniLight3D" parent="Camera3D" unique_id=1210494529]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.71335024)
+visible = false
+light_energy = 3.0
+light_size = 4.0
+
+[node name="GunSFX" type="AudioStreamPlayer3D" parent="Camera3D" unique_id=155530805]
+stream = ExtResource("3_kne1u")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=184721162]
 transform = Transform3D(1, 0, 0, 0, -2.0699501e-07, -0.99999976, 0, 4.7354937, -4.3711378e-08, 0, 0.5868255, -0.409236)

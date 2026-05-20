@@ -6,6 +6,8 @@ extends Node3D
 
 @onready var timer = $Timer
 
+@onready var hit_marker = $CanvasLayer/Control/HitMarker
+
 var score = 0
 
 func _on_timer_timeout():
@@ -28,3 +30,10 @@ func add_score():
 
 	print("Score: ", score)
 	print("Spawn Time: ", timer.wait_time)
+
+func show_hitmarker():
+	hit_marker.visible = true
+
+	await get_tree().create_timer(0.08).timeout
+
+	hit_marker.visible = false
