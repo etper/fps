@@ -6,6 +6,8 @@ extends Node3D
 
 @onready var timer = $Timer
 
+@onready var score_label = $CanvasLayer/Control/ScoreLabel
+
 @onready var hit_marker = $CanvasLayer/Control/HitMarker
 
 var score = 0
@@ -25,6 +27,8 @@ func _on_timer_timeout():
 
 func add_score():
 	score += 1
+
+	score_label.text = "Score: " + str(score)
 
 	timer.wait_time = max(0.3, timer.wait_time - 0.1)
 

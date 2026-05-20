@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bj87hyp2whnbc"]
 
 [ext_resource type="Script" uid="uid://ba3tn8ywbfsfd" path="res://enemy.gd" id="1_tt7e2"]
+[ext_resource type="AudioStream" uid="uid://buv4smrwhe7y0" path="res://sfx/enemyhit.mp3" id="2_s7bn3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gqquq"]
 
@@ -18,3 +19,6 @@ shape = SubResource("CapsuleShape3D_gqquq")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=838624954]
 material_override = SubResource("StandardMaterial3D_gqquq")
 mesh = SubResource("CapsuleMesh_tt7e2")
+
+[node name="HitSFX" type="AudioStreamPlayer3D" parent="." unique_id=914019570]
+stream = ExtResource("2_s7bn3")
