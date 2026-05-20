@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bs2nby0k3haoi"]
 
 [ext_resource type="Script" uid="uid://bco4p7ru2gi4p" path="res://player.gd" id="1_xhfnw"]
+[ext_resource type="PackedScene" uid="uid://bo5thks6jrm6e" path="res://Bullet.tscn" id="2_kpjcp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0rwas"]
 
@@ -8,6 +9,7 @@
 
 [node name="Player" type="CharacterBody3D" unique_id=1765881939]
 script = ExtResource("1_xhfnw")
+bullet_scene = ExtResource("2_kpjcp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1547304162]
 shape = SubResource("CapsuleShape3D_0rwas")
@@ -17,7 +19,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5841048, 0)
 current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=184721162]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5868255, 0)
+transform = Transform3D(1, 0, 0, 0, -2.0699501e-07, -0.99999976, 0, 4.7354937, -4.3711378e-08, 0, 0.5868255, -0.409236)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=855338958]
 mesh = SubResource("CapsuleMesh_xhfnw")
+
+[node name="BulletSpawn" type="Marker3D" parent="." unique_id=1337382802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57353723, -0.7142644)

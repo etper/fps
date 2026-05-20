@@ -4,14 +4,24 @@ const SPEED = 6.0
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENS = 0.002
 
+@export var bullet_scene : PackedScene
+
+@onready var bullet_spawn = $BulletSpawn
+
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera = $Camera3D
+@onready var raycast = $RayCast3D
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event):
+	
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			shoot()
+	
 	if event is InputEventMouseMotion:
 		rotate_y(-event.relative.x * MOUSE_SENS)
 		
@@ -54,3 +64,13 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+
+func shoot():
+	var bullet = bullet_scene.instantiate()
+
+	get_tree().current_scene.add_child(bullet)
+
+	bullet.global_transform = bullet_spawn.global_transform
+
+	bullet.direction = -bullet_spawn.global_transform.basis.z
