@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b4s3qnwq485ds"]
+
+[ext_resource type="PackedScene" uid="uid://bs2nby0k3haoi" path="res://Player.tscn" id="1_ig7tw"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7dm0k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
+
+[node name="Main" type="Node3D" unique_id=523135067]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1339621739]
+transform = Transform3D(23.004633, 0, 0, 0, 5.958596, 0, 0, 0, 19.37932, -0.079875946, 0.05227852, 0.0016422272)
+mesh = SubResource("PlaneMesh_7dm0k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D" unique_id=1816893469]
+transform = Transform3D(2.0011885, 0, 0, 0, 0.033097446, 0, 0, 0, 2.0077586, 0, 0, 0)
+shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="Player" parent="." unique_id=1653731596 instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2778296, 0)
