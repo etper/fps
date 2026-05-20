@@ -28,38 +28,6 @@ extends Node
 	#start/tutorial ui
 
 #decision making
-	#1. Position vs Accuracy
-	#
-	#Force the player to choose:
-	#
-	#stop moving → better aim
-	#keep moving → safer but less accurate
-	#
-	#Example:
-	#
-	#add spread while moving
-	#recoil recovery faster when standing still
-	#
-	#Why it works:
-	#Players constantly decide between survival and precision.
-	#
-	#2. Target Priority
-	#
-	#Different enemies create different decisions.
-	#
-	#Examples:
-	#
-	#fast weak enemy
-	#slow tank enemy
-	#ranged enemy
-	#buff/healer enemy
-	#
-	#Question becomes:
-	#
-	#“Which threat matters most right now?”
-	#
-	#Currently all enemies behave identically.
-	#
 	#3. Space Control
 	#
 	#Reward controlling parts of the arena.

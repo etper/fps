@@ -5,6 +5,13 @@ extends CharacterBody3D
 var speed = 3.0
 var player = null
 
+enum EnemyType {
+	NORMAL,
+	FAST
+}
+
+var enemy_type = EnemyType.NORMAL
+
 func _ready():
 	scale = Vector3.ZERO
 
@@ -76,3 +83,17 @@ func die():
 	await tween.finished
 
 	queue_free()
+
+func setup(type):
+	enemy_type = type
+
+	match enemy_type:
+		EnemyType.NORMAL:
+			speed = 3.0
+			scale = Vector3.ONE
+			$MeshInstance3D.material_override.albedo_color = Color.RED
+
+		EnemyType.FAST:
+			speed = 6.0
+			scale = Vector3(0.7, 0.7, 0.7)
+			$MeshInstance3D.material_override.albedo_color = Color.YELLOW

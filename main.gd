@@ -25,6 +25,11 @@ func _on_timer_timeout():
 
 	enemy.player = player
 
+	if randf() < 0.3:
+		enemy.setup(enemy.EnemyType.FAST)
+	else:
+		enemy.setup(enemy.EnemyType.NORMAL)
+
 func add_score():
 	score += 1
 
