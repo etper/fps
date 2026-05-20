@@ -71,6 +71,6 @@ func shoot():
 
 	get_tree().current_scene.add_child(bullet)
 
-	bullet.global_transform = bullet_spawn.global_transform
+	bullet.global_position = camera.global_position
 
-	bullet.direction = -bullet_spawn.global_transform.basis.z
+	bullet.direction = -camera.global_transform.basis.z

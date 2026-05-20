@@ -25,4 +25,4 @@ transform = Transform3D(1, 0, 0, 0, -2.0699501e-07, -0.99999976, 0, 4.7354937, -
 mesh = SubResource("CapsuleMesh_xhfnw")
 
 [node name="BulletSpawn" type="Marker3D" parent="." unique_id=1337382802]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57353723, -0.7142644)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.478243, -0.7142644)
