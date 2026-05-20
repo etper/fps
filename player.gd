@@ -8,12 +8,22 @@ const MOUSE_SENS = 0.002
 
 @onready var gun_sfx = $Camera3D/GunSFX
 
+@onready var crosshair = $"../CanvasLayer/Control/ColorRect"
+
+const CROSSHAIR_MIN_SIZE = 4.0
+const CROSSHAIR_MAX_SIZE = 18.0
+const MAX_MOVE_SPEED = 6.0
+var current_crosshair_size = CROSSHAIR_MIN_SIZE
+
 @onready var bullet_spawn = $BulletSpawn
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 const RECOIL_STRENGTH = 0.01
 const RECOIL_RECOVER = 8.0
+
+const MOVE_SPREAD = 0.06
+const STAND_SPREAD = 0.0
 
 var recoil_x = 0.0
 
@@ -78,6 +88,41 @@ func _physics_process(delta):
 
 	move_and_slide()
 
+func _process(delta):
+	var move_speed = Vector2(
+		velocity.x,
+		velocity.z
+	).length()
+
+	var accuracy_alpha = clamp(
+		move_speed / MAX_MOVE_SPEED,
+		0.0,
+		1.0
+	)
+
+	var size = lerp(
+		CROSSHAIR_MIN_SIZE,
+		CROSSHAIR_MAX_SIZE,
+		accuracy_alpha
+	)
+
+	current_crosshair_size = lerp(
+		current_crosshair_size,
+		size,
+		delta * 12.0
+	)
+
+	crosshair.custom_minimum_size = Vector2(
+		current_crosshair_size,
+		current_crosshair_size
+	)
+
+	# keep centered
+	crosshair.offset_left = -current_crosshair_size / 2.0
+	crosshair.offset_top = -current_crosshair_size / 2.0
+	crosshair.offset_right = current_crosshair_size / 2.0
+	crosshair.offset_bottom = current_crosshair_size / 2.0
+
 func shoot():
 	var bullet = bullet_scene.instantiate()
 
@@ -85,7 +130,19 @@ func shoot():
 
 	bullet.global_position = camera.global_position
 
-	bullet.direction = -camera.global_transform.basis.z
+	var spread = STAND_SPREAD
+
+	# apply spread while moving
+	if Vector2(velocity.x, velocity.z).length() > 0.1:
+		spread = MOVE_SPREAD
+
+	var shoot_direction = -camera.global_transform.basis.z
+
+	shoot_direction.x += randf_range(-spread, spread)
+	shoot_direction.y += randf_range(-spread, spread)
+	shoot_direction.z += randf_range(-spread, spread)
+
+	bullet.direction = shoot_direction.normalized()
 
 	gun_sfx.stop()
 	gun_sfx.play()
