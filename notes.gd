@@ -1,12 +1,6 @@
 extends Node
 
 #missing feedback
-	#enemy feedback
-		#no death animation
-		#hit reaction
-		#sound
-		#blood/sparks/particles
-		#spawn effect
 	#movement feedback
 		#footsteps
 		#head bob
